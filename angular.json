@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-electron": {
+    "auto-extractor": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -84,24 +84,24 @@
         "serve": {
           "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
-            "browserTarget": "angular-electron:build"
+            "browserTarget": "auto-extractor:build"
           },
           "configurations": {
             "dev": {
-              "browserTarget": "angular-electron:build:dev"
+              "browserTarget": "auto-extractor:build:dev"
             },
             "web": {
-              "browserTarget": "angular-electron:build:web"
+              "browserTarget": "auto-extractor:build:web"
             },
             "production": {
-              "browserTarget": "angular-electron:build:production"
+              "browserTarget": "auto-extractor:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-electron:build"
+            "browserTarget": "auto-extractor:build"
           }
         },
         "test": {
@@ -139,7 +139,7 @@
         }
       }
     },
-    "angular-electron-e2e": {
+    "auto-extractor-e2e": {
       "root": "e2e",
       "projectType": "application",
       "architect": {
@@ -158,7 +158,7 @@
       }
     }
   },
-  "defaultProject": "angular-electron",
+  "defaultProject": "auto-extractor",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
@@ -167,5 +167,8 @@
     "@schematics/angular:directive": {
       "prefix": "app"
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
