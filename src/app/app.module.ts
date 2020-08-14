@@ -11,6 +11,7 @@ import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { AppComponent } from "./app.component";
 import { MainComponent } from "./components/main/main.component";
+import { CommonModule } from "@angular/common";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -22,6 +23,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   imports: [
     BrowserModule,
     FormsModule,
+    CommonModule,
     HttpClientModule,
     SharedModule,
     AppRoutingModule,
