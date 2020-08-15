@@ -12,6 +12,7 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { AppComponent } from "./app.component";
 import { MainComponent } from "./components/main/main.component";
 import { CommonModule } from "@angular/common";
+import { TitlebarComponent } from './components/titlebar/titlebar.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -19,7 +20,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 }
 
 @NgModule({
-  declarations: [AppComponent, MainComponent],
+  declarations: [AppComponent, MainComponent, TitlebarComponent],
   imports: [
     BrowserModule,
     FormsModule,

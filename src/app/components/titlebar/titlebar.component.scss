@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  flex-direction: row;
+
+  .title {
+    flex-grow: 1;
+    font-size: 18px;
+    padding: 10px;
+  }
+
+  button {
+    height: 30px;
+    width: 30px;
+    border: none;
+    background: none;
+
+    transition: background-color ease 0.3s;
+
+    &:hover {
+      background-color: #dddddd;
+      transition: background-color ease 0s;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &.close:hover {
+      background-color: red;
+      color: white;
+    }
+  }
+}

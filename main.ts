@@ -1,30 +1,30 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, Tray, Menu } from "electron";
 import * as path from "path";
 import * as url from "url";
 
-let win: BrowserWindow = null;
+let win: BrowserWindow | undefined = undefined;
+let trayIcon: Tray | undefined = undefined;
 const args = process.argv.slice(1),
   serve = args.some(val => val === "--serve");
 
 function createWindow(): BrowserWindow {
-  // const electronScreen = screen;
-  // const size = electronScreen.getPrimaryDisplay().workAreaSize;
-
   // Create the browser window.
   win = new BrowserWindow({
-    // x: 0,
-    // y: 0,
-    // width: size.width,
-    // height: size.height,
+    width: 320,
+    height: 420,
     webPreferences: {
       nodeIntegration: true,
       allowRunningInsecureContent: serve ? true : false
-    }
+    },
+    autoHideMenuBar: true,
+    fullscreenable: false,
+    maximizable: false,
+    frame: false,
+    center: true,
+    resizable: false
   });
 
   if (serve) {
-    win.webContents.openDevTools();
-
     require("electron-reload")(__dirname, {
       electron: require(`${__dirname}/node_modules/electron`)
     });
@@ -47,7 +47,27 @@ function createWindow(): BrowserWindow {
     win = null;
   });
 
+  win.on("minimize", function (event: Event) {
+    event.preventDefault();
+    win.hide();
+  });
+
   return win;
+}
+
+function createTrayIcon() {
+  trayIcon = new Tray("./src/assets/icons/favicon.png");
+  trayIcon.setContextMenu(
+    Menu.buildFromTemplate([
+      { type: "normal", label: "Open Window", click: () => win?.show() },
+      { type: "separator" },
+      { type: "normal", label: "Start", click: () => win?.webContents.send("start") },
+      { type: "normal", label: "Stop", click: () => win?.webContents.send("stop") },
+      { type: "separator" },
+      { type: "normal", label: "Exit", click: () => win?.close() }
+    ])
+  );
+  trayIcon.addListener("double-click", () => win?.show());
 }
 
 try {
@@ -57,7 +77,10 @@ try {
   // initialization and is ready to create browser windows.
   // Some APIs can only be used after this event occurs.
   // Added 400 ms to fix the black background issue while using transparent window. More detais at https://github.com/electron/electron/issues/15947
-  app.on("ready", () => setTimeout(createWindow, 400));
+  app.on("ready", () => {
+    setTimeout(createWindow, 400);
+    setTimeout(createTrayIcon, 400);
+  });
 
   // Quit when all windows are closed.
   app.on("window-all-closed", () => {
