@@ -1,6 +1,7 @@
 .container {
   display: flex;
   flex-direction: row;
+  -webkit-app-region: drag;
 
   .title {
     flex-grow: 1;
@@ -13,6 +14,7 @@
     width: 30px;
     border: none;
     background: none;
+    -webkit-app-region: no-drag;
 
     transition: background-color ease 0.3s;
 
