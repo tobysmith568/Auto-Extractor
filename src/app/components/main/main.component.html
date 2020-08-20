@@ -4,7 +4,7 @@
   </div>
   <div class="add-new">
     <button class="browse" value=">">&gt;</button>
-    <input #newLocation type="text" />
-    <button class="add" (click)="addLocation(newLocation.value)">+</button>
+    <input [(ngModel)]="newLocation" type="text" />
+    <button class="add" (click)="addLocation()">+</button>
   </div>
 </div>

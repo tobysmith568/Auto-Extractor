@@ -8,6 +8,7 @@ import { ILocation } from "app/services/locations/location.interface";
   styleUrls: ["./main.component.scss"]
 })
 export class MainComponent implements OnInit {
+  public newLocation: string;
   public locations: ILocation[] = [];
 
   constructor(private locationService: LocationsService) {}
@@ -19,10 +20,11 @@ export class MainComponent implements OnInit {
     this.locations = this.locationService.getLocations();
   }
 
-  public addLocation(newLocation: string): void {
+  public addLocation(): void {
     this.locationService.upsertLocation({
-      filePath: newLocation,
+      filePath: this.newLocation,
       isEnabled: true
     });
+    this.newLocation = "";
   }
 }
