@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, OnDestroy } from "@angular/core";
-import { Observable, Subscription } from "rxjs";
+import { Subscription } from "rxjs";
 import { DirectoryService } from "app/services/directory/directory.service";
 import { LocationsService } from "app/services/locations/locations.service";
+import { ZipService } from "app/services/zip/zip.service";
 import { ILocation } from "app/services/locations/location.interface";
 
 @Component({
@@ -15,13 +16,15 @@ export class FolderComponent implements OnInit, OnDestroy {
   @Input()
   public folder: ILocation;
 
-  constructor(private directoryService: DirectoryService, private locationsService: LocationsService) {}
+  constructor(
+    private directoryService: DirectoryService,
+    private locationsService: LocationsService,
+    private zipService: ZipService
+  ) {}
 
   ngOnInit(): void {
     this.directoryService.watchForNewZips(this.folder.filePath).subscribe({
-      next: file => {
-        console.log("New Zip: " + file);
-      }
+      next: async file => await this.zipService.unzip(file)
     });
   }
 

@@ -101,6 +101,7 @@
     "node": ">=10.13.0"
   },
   "dependencies": {
-    "chokidar": "3.4.2"
+    "chokidar": "3.4.2",
+    "extract-zip": "2.0.1"
   }
 }
