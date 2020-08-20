@@ -16,8 +16,16 @@
     border-top: black solid 1px;
 
     input[type="text"] {
-      margin: 3px 5px;
+      margin: 3px 5px 3px 0px;
       flex-grow: 1;
     }
   }
+}
+
+.bar {
+  width: 1px;
+  max-width: 1px;
+  min-width: 1px;
+  border-left: 1px solid black;
+  margin: 0px 5px;
 }
