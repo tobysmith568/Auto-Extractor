@@ -1,6 +1,6 @@
-import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
-import { DirectoryService } from "app/services/directory/directory.service";
-import { Observable } from "rxjs";
+import { Component, OnInit } from "@angular/core";
+import { LocationsService } from "app/services/locations/locations.service";
+import { ILocation } from "app/services/locations/location.interface";
 
 @Component({
   selector: "app-main",
@@ -8,19 +8,21 @@ import { Observable } from "rxjs";
   styleUrls: ["./main.component.scss"]
 })
 export class MainComponent implements OnInit {
-  public newestFile: string;
-  private newZipObserver: Observable<string>;
+  public locations: ILocation[] = [];
 
-  constructor(private directoryService: DirectoryService, private cdr: ChangeDetectorRef) {}
+  constructor(private locationService: LocationsService) {}
 
   ngOnInit(): void {
-    this.newZipObserver = this.directoryService.watchForNewZips("D:\\Users\\tobys\\Desktop\\New folder (2)");
+    this.locationService.$locations.subscribe({
+      next: locations => (this.locations = locations)
+    });
+    this.locations = this.locationService.getLocations();
+  }
 
-    this.newZipObserver.subscribe({
-      next: file => {
-        this.newestFile = file;
-        this.cdr.detectChanges();
-      }
+  public addLocation(newLocation: string): void {
+    this.locationService.upsertLocation({
+      filePath: newLocation,
+      isEnabled: true
     });
   }
 }

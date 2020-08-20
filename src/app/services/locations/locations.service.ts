@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { ILocation } from "./location.interface";
 import { LocalStorageService } from "../localStorage/local-storage.service";
+import { Subject, Observable } from "rxjs";
 
 @Injectable({
   providedIn: "root"
@@ -8,7 +9,13 @@ import { LocalStorageService } from "../localStorage/local-storage.service";
 export class LocationsService {
   private static readonly LocalStorageKey = "LOCATIONS";
 
+  private locationSubject: Subject<ILocation[]> = new Subject<ILocation[]>();
+
   constructor(private localStorage: LocalStorageService) {}
+
+  public get $locations(): Observable<ILocation[]> {
+    return this.locationSubject.asObservable();
+  }
 
   public getLocations(): ILocation[] {
     const locationData: string = this.localStorage.get(LocationsService.LocalStorageKey);
@@ -37,6 +44,7 @@ export class LocationsService {
     }
 
     this.localStorage.set(LocationsService.LocalStorageKey, JSON.stringify(locations));
+    this.locationSubject.next(this.getLocations());
   }
 
   public removeLocation(locationPath: string): void {
@@ -50,5 +58,6 @@ export class LocationsService {
     }
 
     this.localStorage.set(LocationsService.LocalStorageKey, JSON.stringify(locations));
+    this.locationSubject.next(this.getLocations());
   }
 }

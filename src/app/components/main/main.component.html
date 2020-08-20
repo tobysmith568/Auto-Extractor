@@ -1,2 +1,10 @@
-<p>main works!</p>
-<div>Newest file: {{ newestFile }}</div>
+<div class="container">
+  <div class="list">
+    <app-folder *ngFor="let location of locations" [folder]="location"></app-folder>
+  </div>
+  <div class="add-new">
+    <button class="browse" value=">">&gt;</button>
+    <input #newLocation type="text" />
+    <button class="add" (click)="addLocation(newLocation.value)">+</button>
+  </div>
+</div>
