@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ElectronService } from "../../services/electron/electron.service";
+import { LocalStorageService } from "app/services/localStorage/local-storage.service";
 
 @Component({
   selector: "app-titlebar",
@@ -7,7 +8,9 @@ import { ElectronService } from "../../services/electron/electron.service";
   styleUrls: ["./titlebar.component.scss"]
 })
 export class TitlebarComponent implements OnInit {
-  constructor(private electronService: ElectronService) {}
+  public isRunning: boolean;
+
+  constructor(private electronService: ElectronService, private localStorageService: LocalStorageService) {}
 
   ngOnInit(): void {
     this.electronService.$isRunning.subscribe({
@@ -15,7 +18,18 @@ export class TitlebarComponent implements OnInit {
     });
   }
 
-  public toggleRunning(): void {}
+  public toggleRunning(): void {
+    const isCurrentlyRunning: string = this.localStorageService.get("IsRunning").toLowerCase();
+
+    if (isCurrentlyRunning === "true") {
+      this.isRunning = false;
+      this.localStorageService.set("IsRunning", "false");
+      return;
+    }
+
+    this.isRunning = true;
+    this.localStorageService.set("IsRunning", "true");
+  }
 
   public close(): void {
     this.electronService.minimizeWindow();

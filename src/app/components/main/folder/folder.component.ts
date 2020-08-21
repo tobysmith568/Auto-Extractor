@@ -24,7 +24,7 @@ export class FolderComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.newZipSubscription = this.directoryService.watchForNewZips(this.folder.filePath).subscribe({
-      next: async file => await this.zipService.unzip(file)
+      next: file => this.zipService.unzip(file)
     });
   }
 

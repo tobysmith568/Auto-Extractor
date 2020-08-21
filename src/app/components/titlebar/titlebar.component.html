@@ -1,8 +1,8 @@
 <div class="container">
-  <span class="title">Auto-Extractor</span>
   <button class="running" (click)="toggleRunning()">
-    ||
+    {{ isRunning ? "||" : ">" }}
   </button>
+  <span class="title">Auto-Extractor</span>
   <button class="close" (click)="close()">
     X
   </button>
