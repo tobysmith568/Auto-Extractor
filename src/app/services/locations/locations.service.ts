@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ILocation } from "./location.interface";
-import { LocalStorageService } from "../localStorage/local-storage.service";
+import { LocalStorageService, StorageKey } from "../localStorage/local-storage.service";
 import { Subject, Observable } from "rxjs";
 import { LogService } from "../log/log.service";
 
@@ -8,7 +8,7 @@ import { LogService } from "../log/log.service";
   providedIn: "root"
 })
 export class LocationsService {
-  private static readonly LocalStorageKey = "LOCATIONS";
+  private static readonly LocalStorageKey: StorageKey = "Locations";
 
   private locationSubject: Subject<ILocation[]> = new Subject<ILocation[]>();
 
