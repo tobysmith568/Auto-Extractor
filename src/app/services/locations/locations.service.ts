@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { ILocation } from "./location.interface";
 import { LocalStorageService } from "../localStorage/local-storage.service";
 import { Subject, Observable } from "rxjs";
+import { LogService } from "../log/log.service";
 
 @Injectable({
   providedIn: "root"
@@ -11,7 +12,7 @@ export class LocationsService {
 
   private locationSubject: Subject<ILocation[]> = new Subject<ILocation[]>();
 
-  constructor(private localStorage: LocalStorageService) {}
+  constructor(private localStorage: LocalStorageService, private log: LogService) {}
 
   public get $locations(): Observable<ILocation[]> {
     return this.locationSubject.asObservable();
@@ -33,6 +34,7 @@ export class LocationsService {
     let found: boolean = false;
     for (let i = 0; i < locations.length; i++) {
       if (locations[i].filePath === modifiedLocation.filePath) {
+        this.log.info("Updating location", modifiedLocation);
         locations[i] = modifiedLocation;
         found = true;
         break;
@@ -40,6 +42,7 @@ export class LocationsService {
     }
 
     if (!found) {
+      this.log.info("Adding new location", modifiedLocation);
       locations.push(modifiedLocation);
     }
 
@@ -52,6 +55,7 @@ export class LocationsService {
 
     for (let i = 0; i < locations.length; i++) {
       if (locations[i].filePath === locationPath) {
+        this.log.info("Removing location", locations[i]);
         locations.splice(i, 1);
         break;
       }

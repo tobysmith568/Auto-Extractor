@@ -2,7 +2,7 @@ import "reflect-metadata";
 import "../polyfills";
 
 import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
+import { NgModule, APP_INITIALIZER } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule, HttpClient } from "@angular/common/http";
 import { SharedModule } from "./shared/shared.module";
@@ -12,8 +12,9 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { AppComponent } from "./app.component";
 import { MainComponent } from "./components/main/main.component";
 import { CommonModule } from "@angular/common";
-import { TitlebarComponent } from './components/titlebar/titlebar.component';
-import { FolderComponent } from './components/main/folder/folder.component';
+import { TitlebarComponent } from "./components/titlebar/titlebar.component";
+import { FolderComponent } from "./components/main/folder/folder.component";
+import { LogService } from "./services/log/log.service";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -37,7 +38,18 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       }
     })
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (log: LogService) => {
+        return async () => {
+          await log.setUp(process.env.NODE_ENV === "production");
+        };
+      },
+      deps: [LogService],
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

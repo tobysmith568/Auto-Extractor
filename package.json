@@ -102,6 +102,8 @@
   },
   "dependencies": {
     "chokidar": "3.4.2",
-    "extract-zip": "2.0.1"
+    "extract-zip": "2.0.1",
+    "winston": "3.3.3",
+    "winston-daily-rotate-file": "4.5.0"
   }
 }

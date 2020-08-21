@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Tray, Menu } from "electron";
+import { app, BrowserWindow, Tray, Menu, ipcMain } from "electron";
 import * as path from "path";
 import * as url from "url";
 
@@ -102,3 +102,7 @@ try {
   // Catch Error
   // throw e;
 }
+
+ipcMain.handle("app_getPath", (_, args) => {
+  return app.getPath(args);
+});
