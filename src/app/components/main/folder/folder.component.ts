@@ -24,7 +24,11 @@ export class FolderComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.newZipSubscription = this.directoryService.watchForNewZips(this.folder.filePath).subscribe({
-      next: file => this.zipService.unzip(file)
+      next: file => {
+        if (this.folder.isEnabled) {
+          this.zipService.unzip(file);
+        }
+      }
     });
   }
 
@@ -34,5 +38,12 @@ export class FolderComponent implements OnInit, OnDestroy {
 
   public remove(): void {
     this.locationsService.removeLocation(this.folder.filePath);
+  }
+
+  public toggleRunning(): void {
+    this.folder = this.locationsService.upsertLocation({
+      ...this.folder,
+      isEnabled: !this.folder.isEnabled
+    });
   }
 }

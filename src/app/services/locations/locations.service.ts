@@ -28,7 +28,7 @@ export class LocationsService {
     return JSON.parse(locationData);
   }
 
-  public upsertLocation(modifiedLocation: ILocation): void {
+  public upsertLocation(modifiedLocation: ILocation): ILocation {
     const locations = this.getLocations();
 
     let found: boolean = false;
@@ -48,6 +48,8 @@ export class LocationsService {
 
     this.localStorage.set(LocationsService.LocalStorageKey, JSON.stringify(locations));
     this.locationSubject.next(this.getLocations());
+
+    return modifiedLocation;
   }
 
   public removeLocation(locationPath: string): void {

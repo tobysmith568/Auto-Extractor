@@ -1,4 +1,7 @@
 <div class="container">
+  <button class="running" (click)="toggleRunning()">
+    {{ folder.isEnabled ? "||" : ">" }}
+  </button>
   <p class="label">{{ folder.filePath }}</p>
-  <button (click)="remove()">X</button>
+  <button class="remove" (click)="remove()">X</button>
 </div>

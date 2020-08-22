@@ -5,15 +5,16 @@
 
   .label {
     flex-grow: 1;
-	}
+    margin: 5px;
+  }
 
-	button {
-		visibility: hidden;
-	}
-	
-	&:hover {
-		button {
-			visibility: visible;
-		}
-	}
+  .remove {
+    visibility: hidden;
+  }
+
+  &:hover {
+    .remove {
+      visibility: visible;
+    }
+  }
 }
