@@ -6,18 +6,24 @@
 
   .list {
     flex-grow: 1;
-    padding: 10px;
+    padding: 10px 5px;
   }
 
   .add-new {
-    padding: 5px;
     display: flex;
     flex-direction: row;
-    border-top: black solid 1px;
+    border-top: 1px solid #9c9c9c9c;
 
     input[type="text"] {
-      margin: 3px 5px 3px 0px;
+      border: none;
       flex-grow: 1;
+      margin: 10px 0;
+      font-size: 11pt;
+    }
+
+    input[type="text"]:focus {
+      flex-grow: 1;
+      outline: none;
     }
   }
 }
@@ -26,6 +32,6 @@
   width: 1px;
   max-width: 1px;
   min-width: 1px;
-  border-left: 1px solid black;
+  border-left: 1px solid #9c9c9c9c;
   margin: 0px 5px;
 }

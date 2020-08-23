@@ -1,11 +1,11 @@
 .container {
   display: flex;
   flex-direction: row;
-  align-items: baseline;
+  align-items: center;
 
   .label {
     flex-grow: 1;
-    margin: 5px;
+    margin: 8px 5px;
   }
 
   .remove {
