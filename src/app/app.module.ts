@@ -15,6 +15,7 @@ import { CommonModule } from "@angular/common";
 import { TitlebarComponent } from "./components/titlebar/titlebar.component";
 import { FolderComponent } from "./components/main/folder/folder.component";
 import { LogService } from "./services/log/log.service";
+import { InlineSVGModule } from "ng-inline-svg";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -30,6 +31,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     HttpClientModule,
     SharedModule,
     AppRoutingModule,
+    InlineSVGModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

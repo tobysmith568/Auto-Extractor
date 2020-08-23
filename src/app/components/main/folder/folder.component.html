@@ -3,5 +3,5 @@
     {{ folder.isEnabled ? "||" : ">" }}
   </button>
   <p class="label">{{ folder.filePath }}</p>
-  <button class="remove" (click)="remove()">X</button>
+  <button class="remove" [inlineSVG]="'assets/icons/close-outline.svg'" (click)="remove()"></button>
 </div>

@@ -3,7 +3,5 @@
     {{ isRunning ? "||" : ">" }}
   </button>
   <span class="title">Auto-Extractor</span>
-  <button class="close" (click)="close()">
-    X
-  </button>
+  <button class="close" [inlineSVG]="'assets/icons/close-outline.svg'" (click)="close()"></button>
 </div>
